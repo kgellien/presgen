@@ -1,0 +1,21 @@
+syntax: glob
+*.pyc
+*.aux
+*.log
+*.toc
+*.dvi
+*.ps
+*.mtc*
+*.ptc*
+*.bmt
+*.ppt
+*.nav
+*.out
+*.snm
+*-beamer.pdf
+*-beamer.tex
+*-pp.xml
+*-handout.pdf
+*-slides.pdf
+nbproject
+

@@ -1,0 +1,52 @@
+#Pre: PYTHON_DIST_PACKAGES is set (e.g. in .bashrc)
+# relative paths relative to PresGen/presentation/CurrentPresentation
+BIN=../../bin
+COMPANY_SPECIFICS=../../CompanySpecifics
+
+PYTHONPOINT = python $(PYTHON_DIST_PACKAGES)/tools/pythonpoint/pythonpoint.py
+
+
+.SUFFIXES: .txt .pptp
+.txt.pptp:
+	$(BIN)/t2p.py $(T2P_SWITCHES) -s PowerPoint $(POWERPOINT_TEMPLATE) -o $* $*.txt
+
+.SUFFIXES: .txt .beam
+.txt.beam:
+	python $(BIN)/t2p.py $(T2P_SWITCHES) -s Beamer $(BEAMER_TEMPLATE) -o $*-beamer $*.txt
+	pdflatex $*-beamer.tex
+	pdflatex $*-beamer.tex
+
+.SUFFIXES: .txt .pdfp
+.txt.pdfp:
+	python $(BIN)/t2p.py $(T2P_SWITCHES) -s PythonPoint $(PYTHONPOINT_TEMPLATE) $(PYTHONPOINT_BACKGROUND) $(BORDER) -o $*-pp $*.txt
+	$(PYTHONPOINT) --handout $*-pp.xml
+	mv $*-pp.pdf $*-handout.pdf
+	$(PYTHONPOINT) $*-pp.xml
+	mv $*-pp.pdf $*-slides.pdf
+
+
+all: all-de all-en
+
+all-de: pdf-de ppt-de beamer-de
+
+all-en: pdf-en ppt-en beamer-en
+
+
+ppt-de: $(PRES_NAME)-de.pptp
+
+pdf-de: $(PRES_NAME)-de.pdfp
+
+beamer-de: $(PRES_NAME)-de.beam
+
+ppt-en: $(PRES_NAME)-en.pptp
+
+pdf-en: $(PRES_NAME)-en.pdfp
+
+beamer-en: $(PRES_NAME)-en.beam
+
+
+
+clean-base:
+	rm -f *.xml *.pdf *.ppt
+	rm -f *.aux *.log *.toc *.dvi *.ps *.mtc* *.ptc* *.bmt *-beamer.tex
+	rm -f *.out *.snm *.nav

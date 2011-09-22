@@ -1,0 +1,159 @@
+P
+   Author = Kai Gellien
+   ShortTitle = PresGen Doc
+   Title = PresGen Documentation
+   LongTitle = PresGen Documentation
+   Subtitle = Introduction and Reference
+   Language = en
+   Version = 0.5.0
+   Date = 09/22/2011
+   Copyright = Kai Gellien 2000 - 2011
+   License = BSD 3-Clause License
+
+S  Introduction
+
+=H Intro
+
+ . PresGen is a bunch of Python scripts used to create presentations out of a simple text format.
+ . Currently supported formats are PowerPoint, PythonPoint (part of reportlab) and LaTeX's Beamer format.
+
+=H History
+
+ . I started developing PresGen a couple of years ago when dealing with quite inconsistent PowerPoint presentations without proper style files / templates.
+ . So I searched for a simple text format to ease working with presentations and the ability to apply consistent formatting to it.
+ . 'Python Programming on Win32' proved to be of great help for this in introducing me to ReportLab with PythonPoint and the handling of PowerPoint via Python and COM.
+
+
+S  Text Format Description
+
+=H Structure
+ - The presentation is structured in a simple textformat
+ - The first three columns contain formatting and structuring information
+ - Contents starts beginning with column four
+ - The presentation is structured into sections containing slides which contain paragraphs
+
+=H Structure-2
+ - Commentlines are those starting with '#' in column one
+ - Comments at the end of a line are not supported (yet)
+
+ - Column 1 contains section information (I, P, S, =), with the exception of 'r', which signifies the content of the right column when using two-column output
+
+
+=H Column 1
+ - 'I' introduces a section to be ignored, whereas '=I' introduces a slide to ignore
+
+ - 'P' starts the preamble, i.e. information about the presentation
+
+ - 'S' starts a section
+
+ - '#' starts a comment line
+
+ - '=' is used in conjunction with column 2
+ -- '=I' introduces a slide to be ignored
+ -- '=H' introduces the header of a slide
+
+
+=H Column 2 (Paragraph Styles)
+
+ - ' - ' Bulletpoint Level 1
+ - ' --' Bulletpoint Level 2
+ - ' . ' Text
+ - '   ' Continuation line (i.e. first three columns empty, i.e. filled with spaces)
+ - ' > ' Indented text
+ - ' g ' include graphics file
+ - ' n ' A note for handouts; not implemented properly yet
+
+
+=H Two-Column Mode
+ - Two-column mode is entered when 'r' is used for text to appear in the right hand column
+r. This should appear in the second column
+
+
+=H How to create my own presentation
+ . It is assumed that you put your own presentation in a directory inside of presentations.
+ > You may copy the contents of presentations/Documentation as a template.
+ . Makefile and bin/Makefile.defs assume with their relative paths this directory structure.
+ 
+ . At the moment, iso-8859-1 is assumed as the encoding used for all presentations.
+
+
+=H Error Handling
+
+ . There is very little error handling yet.
+   E.g. if an unsupported presentation format is used, the application simply crashes with a stack trace pointing out the error.
+
+
+S  Setup
+
+=H Beamer
+ . Beamer presentation style is usually included in a TeX distribution.
+ . Beware: You have to be careful with specific characters, as these are not yet properly masked for use within LaTeX!
+ . Currently only '#', '$' and '_' are handled.
+
+
+=H PythonPoint
+ . PythonPoint comes with reportlab.
+ . You need to setup system variable PYTHON_DIST_PACKAGES, e.g.
+ c export PYTHON_DIST_PACKAGES=/usr/lib/python2.7/dist-packages
+ . in your .bashrc or
+ c PYTHON_DIST_PACKAGES=c:/Python15/Lib/site-packages
+ . under Windows.
+
+=H PythonPoint
+ . I explicitely use slashes here instead of backslashes so this will work in conjunction with cygwin,
+   where I don't have installed Python so that I always use the same Python.
+ . Furthermore you need to copy the tools folder from the reportlab
+   distribution into this folder, because neither is the tools folder installed automatically
+   nor do the files inside contain the reportlab prefix in their references.
+
+
+=H PowerPoint
+ . You need a PowerPoint version pre 2007 (tested with 2000 and 2003).
+ . You need a Python distribution like the one from ActiveState containing the Windows extensions.
+ . With Python 2.5 ...
+ . Put a PowerPoint template in the CompanySpecifics folder and reference this in the
+   appropriate Makefile as POWERPOINT_TEMPLATE (see example in presentations/Documentation)
+ . POWERPOINT_TEMPLATE may be empt too.
+
+=H Tested Platforms
+ - Windows XP
+ -- PowerPoint 2000/03
+ -- cygwin
+ -- AvtiveState Python 2.5
+ -- ReportLab 2.5
+ -- MiKTeX 2.7 / 2.8 / 2.9
+
+ - Ubuntu 10.04
+ -- Python 2.7
+ -- ReportLab 2.3
+ -- (La)TeX (texlive)
+
+=H Tested Platforms (2)
+ - Mac OS X
+ -- (La)TeX
+ -- Python 2.6 / 2.7
+
+=H Test After Set-up
+ . Enter presgen/presentations/Documentation.
+ - PythonPoint: make pdf-en
+ - PowerPoint: make ppt-en
+ - Beamer: make beamer-en
+
+=H Links
+ - http://www.activestate.com
+ - http://www.reportlab.com
+
+
+S  Further Development
+
+=H Next Steps
+ - Proper refactoring to make structure and intent much clearer
+ - Internationalization
+ - Make it possible to include (complicated) slides (mainly for PowerPoint)
+ - Estimate effort for including support for Open/Libre Office Impress
+ -- is support feasible with current infrastructure?
+ - Support different encodings
+
+=H PowerPoint 2007 and up
+ . Find out, what to change.
+ . Didn't manage on first try, because Microsoft changed object model while at the same time removing the macro recorder from PowerPoint.
