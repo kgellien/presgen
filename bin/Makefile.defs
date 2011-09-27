@@ -1,24 +1,29 @@
 #Pre: PYTHON_DIST_PACKAGES is set (e.g. in .bashrc)
-# relative paths relative to PresGen/presentation/CurrentPresentation
-BIN=../../bin
-COMPANY_SPECIFICS=../../CompanySpecifics
+#Pre: PRESGEN_HOME is set (e.g. in .bashrc)
+
+ifdef PRESGEN_HOME
+PRESGEN_BIN=$(PRESGEN_HOME)/bin
+else
+PRESGEN_BIN=../../bin
+endif
+
 
 PYTHONPOINT = python $(PYTHON_DIST_PACKAGES)/tools/pythonpoint/pythonpoint.py
 
 
 .SUFFIXES: .txt .pptp
 .txt.pptp:
-	$(BIN)/t2p.py $(T2P_SWITCHES) -s PowerPoint $(POWERPOINT_TEMPLATE) -o $* $*.txt
+	$(PRESGEN_BIN)/t2p.py $(T2P_SWITCHES) -s PowerPoint $(POWERPOINT_TEMPLATE) -o $* $*.txt
 
 .SUFFIXES: .txt .beam
 .txt.beam:
-	python $(BIN)/t2p.py $(T2P_SWITCHES) -s Beamer $(BEAMER_TEMPLATE) -o $*-beamer $*.txt
+	python $(PRESGEN_BIN)/t2p.py $(T2P_SWITCHES) -s Beamer $(BEAMER_TEMPLATE) -o $*-beamer $*.txt
 	pdflatex $*-beamer.tex
 	pdflatex $*-beamer.tex
 
 .SUFFIXES: .txt .pdfp
 .txt.pdfp:
-	python $(BIN)/t2p.py $(T2P_SWITCHES) -s PythonPoint $(PYTHONPOINT_TEMPLATE) $(PYTHONPOINT_BACKGROUND) $(BORDER) -o $*-pp $*.txt
+	python $(PRESGEN_BIN)/t2p.py $(T2P_SWITCHES) -s PythonPoint $(PYTHONPOINT_TEMPLATE) $(PYTHONPOINT_BACKGROUND) $(BORDER) -o $*-pp $*.txt
 	$(PYTHONPOINT) --handout $*-pp.xml
 	mv $*-pp.pdf $*-handout.pdf
 	$(PYTHONPOINT) $*-pp.xml

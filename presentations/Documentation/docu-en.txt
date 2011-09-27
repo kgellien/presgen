@@ -5,8 +5,8 @@ P
    LongTitle = PresGen Documentation
    Subtitle = Introduction and Reference
    Language = en
-   Version = 0.5.0
-   Date = 09/22/2011
+   Version = 0.5.1
+   Date = 09/27/2011
    Copyright = Kai Gellien 2000 - 2011
    License = BSD 3-Clause License
 
@@ -73,7 +73,8 @@ r. This should appear in the second column
  . It is assumed that you put your own presentation in a directory inside of presentations.
  > You may copy the contents of presentations/Documentation as a template.
  . Makefile and bin/Makefile.defs assume with their relative paths this directory structure.
- 
+ . If PRESGEN_HOME is set, your presentation may reside outside of PresGen. If you stay with make,
+   you should check their relative paths.
  . At the moment, iso-8859-1 is assumed as the encoding used for all presentations.
 
 
@@ -110,7 +111,7 @@ S  Setup
 =H PowerPoint
  . You need a PowerPoint version pre 2007 (tested with 2000 and 2003).
  . You need a Python distribution like the one from ActiveState containing the Windows extensions.
- . With Python 2.5 ...
+# . With Python 2.5 ...
  . Put a PowerPoint template in the CompanySpecifics folder and reference this in the
    appropriate Makefile as POWERPOINT_TEMPLATE (see example in presentations/Documentation)
  . POWERPOINT_TEMPLATE may be empt too.

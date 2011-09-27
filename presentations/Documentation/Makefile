@@ -1,4 +1,6 @@
 PRES_NAME=docu
+COMPANY_SPECIFICS=../../CompanySpecifics
+MAKEFILE_DEFS=../../bin/Makefile.defs
 
 PYTHONPOINT_TEMPLATE=-t modern
 PYTHONPOINT_BACKGROUND=-g $(COMPANY_SPECIFICS)/CompanyLogo.jpg
@@ -13,10 +15,9 @@ POWERPOINT_TEMPLATE=
 
 # -u -i
 T2P_SWITCHES=
-T2P_SWITCHES=-u
 
 
-include ../../bin/Makefile.defs
+include $(MAKEFILE_DEFS)
 
 
 clean: clean-base
