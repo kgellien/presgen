@@ -86,7 +86,7 @@ class PowerPointPresentation:
 			currentTextRange = Slide.Shapes(currentShape).TextFrame.TextRange
 			currentTextRange.InsertAfter(entry)
 			currentParagraph = currentTextRange.Paragraphs(parId, 0)
-			if   paragraph.style not in ['Bullet', 'Bullet2']:
+			if   paragraph.style not in ['Bullet', 'Bullet2', 'BulletSequence']:
 				currentParagraph.ParagraphFormat.Bullet.Visible = msoFalse
 			elif paragraph.style == 'Bullet2':
 				currentParagraph.IndentLevel = 2

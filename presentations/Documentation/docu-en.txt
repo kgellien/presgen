@@ -5,9 +5,9 @@ P
    LongTitle = PresGen Documentation
    Subtitle = Introduction and Reference
    Language = en
-   Version = 0.5.1
+   Version = 0.5.2
    Date = 09/27/2011
-   Copyright = Kai Gellien 2000 - 2011
+   Copyright = Kai Gellien 2000 - 2012
    License = BSD 3-Clause License
 
 S  Introduction
@@ -57,6 +57,7 @@ S  Text Format Description
 
  - ' - ' Bulletpoint Level 1
  - ' --' Bulletpoint Level 2
+ - ' + ' Bulletpoint Level 1 (sequential display; currently Beamer only)
  - ' . ' Text
  - '   ' Continuation line (i.e. first three columns empty, i.e. filled with spaces)
  - ' > ' Indented text

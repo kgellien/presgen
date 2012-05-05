@@ -6,6 +6,7 @@ paragraphStyleDict = {
  , 'BigCentered':re.compile('^( |r)~')
  , 'Normal':re.compile('^( |r)\.'),    'BodyText':re.compile('^( |r)\+')
  , 'Bullet':re.compile('^( |r)-[^-]'), 'Bullet2':re.compile('^( |r)--')
+ , 'BulletSequence':re.compile('^( |r)\+[^+-]')
  , 'Indent':re.compile('^( |r)>'),     'Code':re.compile('^( |r)c')
  , 'Image':re.compile('^( |r)g') # in this early version considered as paragraph!
  , 'Note':re.compile('^ n')

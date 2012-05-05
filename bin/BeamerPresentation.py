@@ -76,7 +76,7 @@ class BeamerPresentation:
 		result.append('\\frametitle{' + slide.titleParagraph.getAsLine() + '}')
 		depth = 0
 		for paragraph in slide.paragraphs:
-			if   paragraph.style == 'Bullet':
+			if   paragraph.style in ['Bullet', 'BulletSequence']:
 				if   depth == 0:
 					result.append('  \\begin{itemize}')
 					depth = 1
@@ -106,10 +106,12 @@ class BeamerPresentation:
 			if   paragraph.style == 'Image':
 				result.append('  \\includegraphics<1>[height=6cm, width=10cm]{' + paragraph.lines[0] + '}')
 			else:
-				if not paragraph.style in ['Bullet', 'Bullet2', 'Normal', 'BigCentered']:
+				if not paragraph.style in ['BulletSequence', 'Bullet', 'Bullet2', 'Normal', 'BigCentered']:
 					result.append('  %paragraph.style="' + paragraph.style + '"')
 				if   paragraph.style in ['Bullet', 'Bullet2']:
 					result.append(insert + '\\item')
+				elif   paragraph.style in ['BulletSequence']:
+					result.append(insert + """\pause \item""")
 				elif paragraph.style == 'Normal':
 					result.append('')
 				elif paragraph.style == 'BigCentered':
