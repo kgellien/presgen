@@ -19,7 +19,9 @@ PYTHONPOINT = python $(PYTHON_DIST_PACKAGES)/tools/pythonpoint/pythonpoint.py
 .txt.beam:
 	python $(PRESGEN_BIN)/t2p.py $(T2P_SWITCHES) -s Beamer $(BEAMER_TEMPLATE) -o $*-beamer $*.txt
 	pdflatex $*-beamer.tex
-	pdflatex $*-beamer.tex
+	pdflatex $*-beamer-handout.tex
+#	pdflatex $*-beamer.tex
+#	pdflatex $*-beamer-handout.tex
 
 .SUFFIXES: .txt .pdfp
 .txt.pdfp:

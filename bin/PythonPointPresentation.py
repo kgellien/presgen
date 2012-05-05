@@ -4,7 +4,7 @@ msg = sys.stderr
 
 class PythonPointPresentation:
 
-	def __init__(self, presentation):
+	def __init__(self, presentation, asHandout):
 		self.presentation = presentation
 		self.withBorder = presentation.withBorder
 		self.background = presentation.background

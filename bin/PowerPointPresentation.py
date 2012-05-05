@@ -12,7 +12,7 @@ ppLayoutObject = 0x10
 
 class PowerPointPresentation:
 
-	def __init__(self, presentation):
+	def __init__(self, presentation, asHandout):
 		self.App = win32com.client.Dispatch('PowerPoint.Application')
 		self.presentation = presentation
 		self.titleSlide = presentation.titleSlide

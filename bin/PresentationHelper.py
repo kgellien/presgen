@@ -33,19 +33,25 @@ def __getContentSlide(title, entries, page, singleColumn):
 
 class PresentationHelper:
 
-	def getAsPythonPoint(self, presentation):
+	def getAsPythonPoint(self, presentation, asHandout):
 		import PythonPointPresentation
 		return PythonPointPresentation.PythonPointPresentation(presentation)
 
-	def getAsPowerPoint(self, presentation):
+	def getAsPowerPoint(self, presentation, asHandout):
 		import PowerPointPresentation
 		return PowerPointPresentation.PowerPointPresentation(presentation)
 
-	def getAsBeamer(self, presentation):
+	def getAsBeamer(self, presentation, asHandout):
 		import BeamerPresentation
-		return BeamerPresentation.BeamerPresentation(presentation)
+		return BeamerPresentation.BeamerPresentation(presentation, asHandout)
 
 	def writePresentation(self, presentation, style, outFilePrefix, template, withSectionToc):
-		presMethod = getattr(PresentationHelper, 'getAs%s' % style)
-		pres = presMethod(self, presentation) # crash if no such method
-		pres.writePresentation(outFilePrefix, template, withSectionToc)
+		if style in ['PythonPoint', 'PowerPoint']:
+			presMethod = getattr(PresentationHelper, 'getAs%s' % style)
+			pres = presMethod(self, presentation, asHandout) # crash if no such method
+			pres.writePresentation(outFilePrefix, template, withSectionToc)
+		elif style == 'Beamer':
+			pres = self.getAsBeamer(presentation, asHandout=False)
+			pres.writePresentation(outFilePrefix, template, withSectionToc)
+#			handout = self.getAsBeamer(presentation, asHandout=True)
+#			handout.writePresentation(outFilePrefix, template, withSectionToc)

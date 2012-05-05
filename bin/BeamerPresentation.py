@@ -4,7 +4,7 @@ msg = sys.stderr
 
 class BeamerPresentation:
 
-	def __init__(self, presentation):
+	def __init__(self, presentation, asHandout):
 		self.presentation = presentation
 		self.footerLeft = presentation.footerLeft
 		self.footerMiddle = presentation.footerMiddle
@@ -15,9 +15,12 @@ class BeamerPresentation:
 		self.date = self.presentation.prefix['Date']
 		languages = {'en': 'english', 'de': 'german'}
 		self.language = languages[self.presentation.prefix['Language']]
+		self.asHandout = asHandout
 
 	def writePresentation(self, outFilePrefix, template, withSectionToc):
 		out = open(outFilePrefix+'.tex', 'w')
+		if self.asHandout:
+			out = open(outFilePrefix+'-handout.tex', 'w')
 		for line in self.getPresentation(template, withSectionToc):
 			out.write(line + '\n')
 		out.close()
@@ -25,10 +28,16 @@ class BeamerPresentation:
 	def getPresentation(self, template, withSectionToc):
 		global pageNo
 		result = []
-		result.append('\\documentclass{beamer}')
+		if self.asHandout:
+			result.append('\\documentclass[handout]{beamer}')
+		else:
+			result.append('\\documentclass{beamer}')
 		result.append('\\mode<presentation>')
 		if template:
 			result.append('\\usetheme{' + template + '}')
+		if self.asHandout:
+			result.append('\\usepackage{pgfpages}')
+			result.append('\\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]')
 		result.append('\\usepackage[latin1]{inputenc}')
 		result.append('\\usepackage[german]{babel}')
 		result.append('\\usepackage[T1]{fontenc} % Necessary for hyphenation with e.g. german umlaut')
