@@ -18,9 +18,10 @@ class BeamerPresentation:
 		self.asHandout = asHandout
 
 	def writePresentation(self, outFilePrefix, template, withSectionToc):
-		out = open(outFilePrefix+'.tex', 'w')
 		if self.asHandout:
 			out = open(outFilePrefix+'-handout.tex', 'w')
+		else:
+			out = open(outFilePrefix+'.tex', 'w')
 		for line in self.getPresentation(template, withSectionToc):
 			out.write(line + '\n')
 		out.close()

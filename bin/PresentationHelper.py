@@ -48,10 +48,10 @@ class PresentationHelper:
 	def writePresentation(self, presentation, style, outFilePrefix, template, withSectionToc):
 		if style in ['PythonPoint', 'PowerPoint']:
 			presMethod = getattr(PresentationHelper, 'getAs%s' % style)
-			pres = presMethod(self, presentation, asHandout) # crash if no such method
+			pres = presMethod(self, presentation, asHandout=False) # crash if no such method
 			pres.writePresentation(outFilePrefix, template, withSectionToc)
 		elif style == 'Beamer':
 			pres = self.getAsBeamer(presentation, asHandout=False)
 			pres.writePresentation(outFilePrefix, template, withSectionToc)
-#			handout = self.getAsBeamer(presentation, asHandout=True)
-#			handout.writePresentation(outFilePrefix, template, withSectionToc)
+			handout = self.getAsBeamer(presentation, asHandout=True)
+			handout.writePresentation(outFilePrefix, template, withSectionToc)

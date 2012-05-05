@@ -55,5 +55,5 @@ beamer-en: $(PRES_NAME)-en.beam
 
 clean-base:
 	rm -f *.xml *.pdf *.ppt
-	rm -f *.aux *.log *.toc *.dvi *.ps *.mtc* *.ptc* *.bmt *-beamer.tex
+	rm -f *.aux *.log *.toc *.dvi *.ps *.mtc* *.ptc* *.bmt *-beamer.tex *-handout.tex
 	rm -f *.out *.snm *.nav
