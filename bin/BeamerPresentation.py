@@ -30,15 +30,16 @@ class BeamerPresentation:
 		global pageNo
 		result = []
 		if self.asHandout:
-			result.append('\\documentclass[handout]{beamer}')
+			result.append('\\documentclass[handout,hyperref={pdfpagelabels=false}]{beamer}')
 		else:
-			result.append('\\documentclass{beamer}')
+			result.append('\\documentclass[hyperref={pdfpagelabels=false}]{beamer}')
 		result.append('\\mode<presentation>')
 		if template:
 			result.append('\\usetheme{' + template + '}')
 		if self.asHandout:
 			result.append('\\usepackage{pgfpages}')
-			result.append('\\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]')
+			result.append('\\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm,portrait]')
+			#result.append('\\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]')
 		result.append('\\usepackage[latin1]{inputenc}')
 		result.append('\\usepackage[german]{babel}')
 		result.append('\\usepackage[T1]{fontenc} % Necessary for hyphenation with e.g. german umlaut')
