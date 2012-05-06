@@ -18,11 +18,11 @@ sectionStyleDict = {
    'Section':re.compile('^S'), 'Prefix':re.compile('^P'), 'Ignore':re.compile('^I')
 }
 
-def getSectionStyle(zeile):
-	return setFromDict(sectionStyleDict, zeile, default='Ignore')
+def getSectionStyle(line):
+	return setFromDict(sectionStyleDict, line, default='Ignore')
 
-def getSlideStyle(zeile):
-	return setFromDict(slideStyleDict, zeile, default='Heading1')
+def getSlideStyle(line):
+	return setFromDict(slideStyleDict, line, default='Heading1')
 
-def getParagraphStyle(zeile):
-	return setFromDict(paragraphStyleDict, zeile, default='Normal')
+def getParagraphStyle(line):
+	return setFromDict(paragraphStyleDict, line, default='Normal')
